@@ -27,7 +27,7 @@ class _CustomMenuItemState extends State<CustomMenuItem> {
         onEnter: (_) => setState(() => isHover = true),
         onExit: (_) => setState(() => isHover = false),
         child: GestureDetector(
-          onTap: () => widget.onPressed,
+          onTap: () => widget.onPressed(),
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
             width: 150,
