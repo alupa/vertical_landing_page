@@ -11,10 +11,13 @@ class PageProvider extends ChangeNotifier {
     this.scrollController =
         new PageController(initialPage: getPageIndex(routeName));
 
+    html.document.title = capitalize(_pages[getPageIndex(routeName)]);
+
     this.scrollController.addListener(() {
       final index = (this.scrollController.page ?? 0).round();
       if (index != _currentIndex) {
         html.window.history.pushState(null, 'none', '#/${_pages[index]}');
+        html.document.title = capitalize(_pages[index]);
         _currentIndex = index;
       }
     });
@@ -29,5 +32,10 @@ class PageProvider extends ChangeNotifier {
 
     scrollController.animateToPage(index,
         duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+  }
+
+  String capitalize(String text) {
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1);
   }
 }
